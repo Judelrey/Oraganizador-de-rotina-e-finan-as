@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Organizador Pessoal</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-user-circle"></i> Organizador</h1>
+                <p class="subtitle">Controle financeiro e estudos</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h3>Principal</h3>
+                    <a href="index.html" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>Ferramentas</h3>
+                    <a href="planilhaFinanceira.html" target="_blank" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Finanças</span>
+                    </a>
+                    <a href="conograma.html" target="_blank" class="nav-link">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Estudos</span>
+                    </a>
+                    <a href="#" id="open-both-tools" class="nav-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        <span>Abrir Ambos</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>Configurações</h3>
+                    <button class="nav-link" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                        <span>Tema Escuro</span>
+                    </button>
+                    <button class="nav-link" id="export-all-data">
+                        <i class="fas fa-download"></i>
+                        <span>Exportar Tudo</span>
+                    </button>
+                    <button class="nav-link" id="backup-all">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Backup Completo</span>
+                    </button>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <i class="fas fa-circle status-online"></i>
+                    <span>Dados salvos localmente</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-title">
+                    <h2>Dashboard</h2>
+                    <p>Visão geral do seu organizador pessoal</p>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="date-display">
+                        <i class="far fa-calendar"></i>
+                        <span id="current-date">Carregando...</span>
+                    </div>
+                    <button class="btn btn-primary" id="refresh-dashboard">
+                        <i class="fas fa-sync-alt"></i> Atualizar
+                    </button>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Saldo Atual</h3>
+                        <p id="balance-stat">R$ 0,00</p>
+                        <span class="stat-trend positive">+2.5%</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Receita Mensal</h3>
+                        <p id="income-stat">R$ 0,00</p>
+                        <span class="stat-trend positive">+12%</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Despesas Mensais</h3>
+                        <p id="expense-stat">R$ 0,00</p>
+                        <span class="stat-trend negative">-5%</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Sessões Hoje</h3>
+                        <p id="study-stat">0</p>
+                        <span class="stat-trend neutral">—</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Metas Ativas</h3>
+                        <p id="goals-stat">0</p>
+                        <span class="stat-trend positive">+3</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Último Backup</h3>
+                        <p id="backup-stat">—</p>
+                        <span class="stat-trend neutral">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="content-grid">
+                <!-- Quick Actions -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-bolt"></i> Ações Rápidas</h3>
+                        <p>Gerencie seus dados rapidamente</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="quick-actions-grid">
+                            <button class="quick-action" id="quick-add-income">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Nova Receita</span>
+                            </button>
+                            <button class="quick-action" id="quick-add-expense">
+                                <i class="fas fa-minus-circle"></i>
+                                <span>Nova Despesa</span>
+                            </button>
+                            <button class="quick-action" id="quick-add-study">
+                                <i class="fas fa-book"></i>
+                                <span>Nova Sessão</span>
+                            </button>
+                            <button class="quick-action" id="quick-add-note">
+                                <i class="fas fa-sticky-note"></i>
+                                <span>Nova Anotação</span>
+                            </button>
+                            <button class="quick-action" id="quick-backup">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Backup Agora</span>
+                            </button>
+                            <button class="quick-action" id="quick-export">
+                                <i class="fas fa-file-export"></i>
+                                <span>Exportar Dados</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-exchange-alt"></i> Transações Recentes</h3>
+                        <p>Últimas movimentações financeiras</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="transactions-list" id="recent-transactions">
+                            <div class="empty-state">
+                                <i class="fas fa-exchange-alt"></i>
+                                <p>Nenhuma transação recente</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Today's Schedule -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-calendar-day"></i> Agenda de Hoje</h3>
+                        <p>Sessões de estudo programadas</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="schedule-list" id="today-schedule">
+                            <div class="empty-state">
+                                <i class="fas fa-calendar-day"></i>
+                                <p>Nenhuma sessão hoje</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Goals Progress -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-bullseye"></i> Progresso de Metas</h3>
+                        <p>Acompanhe suas conquistas</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="goals-list" id="active-goals">
+                            <div class="empty-state">
+                                <i class="fas fa-bullseye"></i>
+                                <p>Nenhuma meta ativa</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Storage -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-folder-open"></i> Arquivos Recentes</h3>
+                        <p>Materiais adicionados recentemente</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="files-list" id="recent-files">
+                            <div class="empty-state">
+                                <i class="fas fa-folder-open"></i>
+                                <p>Nenhum arquivo recente</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Status -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-server"></i> Status do Sistema</h3>
+                        <p>Informações técnicas e armazenamento</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="system-status">
+                            <div class="status-item">
+                                <span class="status-label">Armazenamento Local</span>
+                                <div class="status-value">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="storage-progress" style="width: 0%"></div>
+                                    </div>
+                                    <span id="storage-text">0KB / 5MB</span>
+                                </div>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">Última Atualização</span>
+                                <span class="status-value" id="last-update">—</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">Versão</span>
+                                <span class="status-value">2.0.0</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">Modo Offline</span>
+                                <span class="status-value">
+                                    <i class="fas fa-check-circle status-online"></i>
+                                    Disponível
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <div class="footer-content">
+                    <p>© 2024 Organizador Pessoal. Todos os direitos reservados.</p>
+                    <div class="footer-links">
+                        <a href="#" id="clear-all-data">Limpar todos os dados</a>
+                        <a href="#" id="import-data">Importar dados</a>
+                        <a href="#" id="system-help">Ajuda</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Modais -->
+    <div class="modal" id="quick-add-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Adicionar Transação</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="quick-add-form">
+                    <!-- Formulário será preenchido dinamicamente -->
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

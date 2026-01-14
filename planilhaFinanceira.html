@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanças | Organizador Pessoal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/financeiro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-chart-line"></i> Finanças</h1>
+                <p class="subtitle">Controle seu dinheiro</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h3>Navegação</h3>
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="cronograma.html" target="_blank" class="nav-link">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Estudos</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>Ferramentas</h3>
+                    <div class="nav-tabs">
+                        <button class="nav-tab active" data-tab="financial-dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </button>
+                        <button class="nav-tab" data-tab="financial-transactions">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Transações</span>
+                        </button>
+                        <button class="nav-tab" data-tab="financial-bills">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Contas Fixas</span>
+                        </button>
+                        <button class="nav-tab" data-tab="financial-goals">
+                            <i class="fas fa-bullseye"></i>
+                            <span>Metas</span>
+                        </button>
+                        <button class="nav-tab" data-tab="financial-reports">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Relatórios</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>Configurações</h3>
+                    <button class="nav-link" id="finance-theme-toggle">
+                        <i class="fas fa-moon"></i>
+                        <span>Tema Escuro</span>
+                    </button>
+                    <button class="nav-link" id="export-finance-data">
+                        <i class="fas fa-download"></i>
+                        <span>Exportar Dados</span>
+                    </button>
+                    <button class="nav-link" id="backup-finance">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Backup</span>
+                    </button>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <i class="fas fa-circle status-online"></i>
+                    <span>Dados salvos localmente</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-title">
+                    <h2 id="finance-page-title">Dashboard Financeiro</h2>
+                    <p id="finance-page-subtitle">Visão geral das suas finanças</p>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="date-filter">
+                        <select id="period-filter" class="form-select-sm">
+                            <option value="month">Este Mês</option>
+                            <option value="last-month">Mês Anterior</option>
+                            <option value="quarter">Este Trimestre</option>
+                            <option value="year">Este Ano</option>
+                            <option value="custom">Personalizado</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="add-transaction-btn">
+                        <i class="fas fa-plus"></i> Nova Transação
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Sections -->
+            <div class="content-sections">
+                <!-- Dashboard -->
+                <section class="content-section active" id="financial-dashboard">
+                    <!-- Stats Row -->
+                    <div class="stats-row">
+                        <div class="finance-stat-card primary">
+                            <div class="stat-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Saldo Atual</h3>
+                                <p id="current-balance">R$ 0,00</p>
+                                <span class="stat-change" id="balance-change">—</span>
+                            </div>
+                        </div>
+                        
+                        <div class="finance-stat-card success">
+                            <div class="stat-icon">
+                                <i class="fas fa-arrow-up"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Receita Total</h3>
+                                <p id="total-income">R$ 0,00</p>
+                                <span class="stat-change positive" id="income-change">—</span>
+                            </div>
+                        </div>
+                        
+                        <div class="finance-stat-card danger">
+                            <div class="stat-icon">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Despesas Totais</h3>
+                                <p id="total-expenses">R$ 0,00</p>
+                                <span class="stat-change negative" id="expenses-change">—</span>
+                            </div>
+                        </div>
+                        
+                        <div class="finance-stat-card info">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Investimentos</h3>
+                                <p id="total-investments">R$ 0,00</p>
+                                <span class="stat-change" id="investments-change">—</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts and Data -->
+                    <div class="dashboard-grid">
+                        <!-- Expense Chart -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-chart-pie"></i> Distribuição de Gastos</h4>
+                                <select id="expense-chart-period" class="form-select-xs">
+                                    <option value="month">Este Mês</option>
+                                    <option value="quarter">Trimestre</option>
+                                </select>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="expenseChart"></canvas>
+                                </div>
+                                <div class="chart-legend" id="expense-legend">
+                                    <!-- Legend will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Transactions -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-history"></i> Transações Recentes</h4>
+                                <a href="#" class="btn-link" data-tab="financial-transactions">Ver todas</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="transactions-list" id="dashboard-transactions">
+                                    <div class="empty-state">
+                                        <i class="fas fa-exchange-alt"></i>
+                                        <p>Nenhuma transação recente</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Upcoming Bills -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-calendar-alt"></i> Contas à Vencer</h4>
+                                <a href="#" class="btn-link" data-tab="financial-bills">Gerenciar</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="bills-list" id="upcoming-bills">
+                                    <div class="empty-state">
+                                        <i class="fas fa-file-invoice-dollar"></i>
+                                        <p>Nenhuma conta próxima do vencimento</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Goals Progress -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-bullseye"></i> Progresso de Metas</h4>
+                                <a href="#" class="btn-link" data-tab="financial-goals">Ver todas</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="goals-progress" id="goals-progress">
+                                    <div class="empty-state">
+                                        <i class="fas fa-bullseye"></i>
+                                        <p>Nenhuma meta definida</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Transactions -->
+                <section class="content-section" id="financial-transactions">
+                    <div class="section-header">
+                        <div>
+                            <h3><i class="fas fa-exchange-alt"></i> Transações Financeiras</h3>
+                            <p>Registre e acompanhe todas as suas movimentações</p>
+                        </div>
+                        <button class="btn btn-primary" id="add-transaction-full">
+                            <i class="fas fa-plus"></i> Nova Transação
+                        </button>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <div class="filters-bar">
+                        <div class="filter-group">
+                            <label for="transaction-type-filter">Tipo:</label>
+                            <select id="transaction-type-filter" class="form-select">
+                                <option value="all">Todos</option>
+                                <option value="income">Receitas</option>
+                                <option value="expense">Despesas</option>
+                                <option value="investment">Investimentos</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="transaction-date-from">De:</label>
+                            <input type="date" id="transaction-date-from" class="form-input">
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="transaction-date-to">Até:</label>
+                            <input type="date" id="transaction-date-to" class="form-input">
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="transaction-category">Categoria:</label>
+                            <select id="transaction-category" class="form-select">
+                                <option value="all">Todas</option>
+                                <!-- Categories will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-secondary" id="apply-filters">
+                            <i class="fas fa-filter"></i> Aplicar
+                        </button>
+                        
+                        <button class="btn btn-secondary" id="reset-filters">
+                            <i class="fas fa-redo"></i> Limpar
+                        </button>
+                    </div>
+                    
+                    <!-- Transactions Table -->
+                    <div class="data-table-container">
+                        <table class="data-table" id="transactions-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Descrição</th>
+                                    <th>Categoria</th>
+                                    <th>Tipo</th>
+                                    <th>Valor</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactions-body">
+                                <!-- Transactions will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Table Footer -->
+                    <div class="table-footer">
+                        <div class="table-summary">
+                            <span>Total: <strong id="transactions-total">R$ 0,00</strong></span>
+                            <span>Receitas: <strong class="positive" id="income-total">R$ 0,00</strong></span>
+                            <span>Despesas: <strong class="negative" id="expense-total">R$ 0,00</strong></span>
+                        </div>
+                        <div class="table-pagination">
+                            <button class="btn-icon" id="prev-page">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span id="current-page">1</span>
+                            <button class="btn-icon" id="next-page">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Bills -->
+                <section class="content-section" id="financial-bills">
+                    <div class="section-header">
+                        <div>
+                            <h3><i class="fas fa-file-invoice-dollar"></i> Contas Fixas</h3>
+                            <p>Gerencie suas contas recorrentes e vencimentos</p>
+                        </div>
+                        <button class="btn btn-primary" id="add-bill">
+                            <i class="fas fa-plus"></i> Nova Conta
+                        </button>
+                    </div>
+                    
+                    <div class="bills-container">
+                        <!-- Current Month Bills -->
+                        <div class="bills-section">
+                            <h4><i class="fas fa-calendar-check"></i> Contas deste Mês</h4>
+                            <div class="bills-grid" id="current-month-bills">
+                                <!-- Bills will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Upcoming Bills -->
+                        <div class="bills-section">
+                            <h4><i class="fas fa-calendar-alt"></i> Próximos Vencimentos</h4>
+                            <div class="bills-grid" id="upcoming-bills-full">
+                                <!-- Bills will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Add Bill Form -->
+                    <div class="add-bill-form">
+                        <h4><i class="fas fa-plus-circle"></i> Adicionar Nova Conta Fixa</h4>
+                        <form id="bill-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="bill-description">Descrição *</label>
+                                    <input type="text" id="bill-description" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bill-amount">Valor (R$) *</label>
+                                    <input type="number" id="bill-amount" class="form-input" min="0" step="0.01" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bill-due-date">Data de Vencimento *</label>
+                                    <input type="date" id="bill-due-date" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bill-category">Categoria</label>
+                                    <select id="bill-category" class="form-select">
+                                        <option value="housing">Moradia</option>
+                                        <option value="utilities">Utilidades</option>
+                                        <option value="transport">Transporte</option>
+                                        <option value="food">Alimentação</option>
+                                        <option value="health">Saúde</option>
+                                        <option value="education">Educação</option>
+                                        <option value="entertainment">Entretenimento</option>
+                                        <option value="other">Outro</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bill-recurrence">Recorrência</label>
+                                    <select id="bill-recurrence" class="form-select">
+                                        <option value="monthly">Mensal</option>
+                                        <option value="quarterly">Trimestral</option>
+                                        <option value="biannual">Semestral</option>
+                                        <option value="annual">Anual</option>
+                                        <option value="once">Única</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        <i class="fas fa-save"></i> Salvar Conta
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Goals -->
+                <section class="content-section" id="financial-goals">
+                    <div class="section-header">
+                        <div>
+                            <h3><i class="fas fa-bullseye"></i> Metas Financeiras</h3>
+                            <p>Defina e acompanhe seus objetivos financeiros</p>
+                        </div>
+                        <button class="btn btn-primary" id="add-goal">
+                            <i class="fas fa-plus"></i> Nova Meta
+                        </button>
+                    </div>
+                    
+                    <div class="goals-container">
+                        <div class="goals-grid" id="goals-grid">
+                            <!-- Goals will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="add-goal-form">
+                            <h4><i class="fas fa-plus-circle"></i> Criar Nova Meta</h4>
+                            <form id="goal-form">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="goal-title">Título da Meta *</label>
+                                        <input type="text" id="goal-title" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="goal-target">Valor Alvo (R$) *</label>
+                                        <input type="number" id="goal-target" class="form-input" min="0" step="0.01" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="goal-current">Valor Atual (R$)</label>
+                                        <input type="number" id="goal-current" class="form-input" min="0" step="0.01" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="goal-deadline">Data Limite</label>
+                                        <input type="date" id="goal-deadline" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="goal-category">Categoria</label>
+                                        <select id="goal-category" class="form-select">
+                                            <option value="savings">Economias</option>
+                                            <option value="investment">Investimento</option>
+                                            <option value="debt">Quitar Dívidas</option>
+                                            <option value="purchase">Compra Específica</option>
+                                            <option value="emergency">Fundo de Emergência</option>
+                                            <option value="other">Outro</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="goal-priority">Prioridade</label>
+                                        <select id="goal-priority" class="form-select">
+                                            <option value="low">Baixa</option>
+                                            <option value="medium" selected>Média</option>
+                                            <option value="high">Alta</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            <i class="fas fa-plus"></i> Criar Meta
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reports -->
+                <section class="content-section" id="financial-reports">
+                    <div class="section-header">
+                        <h3><i class="fas fa-chart-pie"></i> Relatórios Financeiros</h3>
+                        <p>Análises detalhadas e insights sobre suas finanças</p>
+                    </div>
+                    
+                    <div class="reports-container">
+                        <!-- Report Filters -->
+                        <div class="reports-filters">
+                            <div class="filter-group">
+                                <label for="report-type">Tipo de Relatório:</label>
+                                <select id="report-type" class="form-select">
+                                    <option value="expense-analysis">Análise de Gastos</option>
+                                    <option value="income-analysis">Análise de Receitas</option>
+                                    <option value="monthly-summary">Resumo Mensal</option>
+                                    <option value="category-breakdown">Por Categoria</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label for="report-period">Período:</label>
+                                <select id="report-period" class="form-select">
+                                    <option value="current-month">Este Mês</option>
+                                    <option value="last-month">Mês Anterior</option>
+                                    <option value="last-3-months">Últimos 3 Meses</option>
+                                    <option value="last-6-months">Últimos 6 Meses</option>
+                                    <option value="current-year">Este Ano</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label for="report-format">Formato:</label>
+                                <select id="report-format" class="form-select">
+                                    <option value="chart">Gráfico</option>
+                                    <option value="table">Tabela</option>
+                                    <option value="both">Ambos</option>
+                                </select>
+                            </div>
+                            
+                            <button class="btn btn-primary" id="generate-report">
+                                <i class="fas fa-chart-bar"></i> Gerar Relatório
+                            </button>
+                            
+                            <button class="btn btn-secondary" id="export-report">
+                                <i class="fas fa-download"></i> Exportar
+                            </button>
+                        </div>
+                        
+                        <!-- Report Results -->
+                        <div class="report-results">
+                            <div class="report-chart">
+                                <canvas id="reportChart"></canvas>
+                            </div>
+                            
+                            <div class="report-table">
+                                <table class="data-table" id="report-data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Categoria</th>
+                                            <th>Valor</th>
+                                            <th>Porcentagem</th>
+                                            <th>Tendência</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="report-data-body">
+                                        <!-- Report data will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <!-- Insights -->
+                            <div class="report-insights">
+                                <h4><i class="fas fa-lightbulb"></i> Insights do Relatório</h4>
+                                <div class="insights-list" id="report-insights">
+                                    <!-- Insights will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <div class="footer-content">
+                    <p>© 2024 Organizador Pessoal - Finanças. Todos os dados são armazenados localmente.</p>
+                    <div class="footer-links">
+                        <a href="#" id="clear-finance-data">Limpar dados financeiros</a>
+                        <a href="#" id="import-finance-data">Importar dados</a>
+                        <a href="#" id="finance-help">Ajuda</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Modais -->
+    <div class="modal" id="transaction-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="transaction-modal-title">Nova Transação</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="transaction-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="transaction-type">Tipo *</label>
+                            <select id="transaction-type" class="form-select" required>
+                                <option value="">Selecione...</option>
+                                <option value="income">Receita</option>
+                                <option value="expense">Despesa</option>
+                                <option value="investment">Investimento</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="transaction-description">Descrição *</label>
+                            <input type="text" id="transaction-description" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="transaction-amount">Valor (R$) *</label>
+                            <input type="number" id="transaction-amount" class="form-input" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="transaction-date">Data *</label>
+                            <input type="date" id="transaction-date" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="transaction-category-modal">Categoria *</label>
+                            <select id="transaction-category-modal" class="form-select" required>
+                                <!-- Categories will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="transaction-payment-method">Forma de Pagamento</label>
+                            <select id="transaction-payment-method" class="form-select">
+                                <option value="cash">Dinheiro</option>
+                                <option value="debit">Débito</option>
+                                <option value="credit">Crédito</option>
+                                <option value="transfer">Transferência</option>
+                                <option value="pix">PIX</option>
+                                <option value="other">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="transaction-notes">Observações</label>
+                            <textarea id="transaction-notes" class="form-textarea" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary modal-close">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Transação</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/financeiro.js"></script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronograma de Estudos | Organizador Pessoal</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/estudo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="estudo-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-graduation-cap"></i> Cronograma</h1>
+                <p class="subtitle">Organize seus estudos</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h3>Navegação</h3>
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="planilhaFinanceira.html" target="_blank" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Finanças</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>Ferramentas</h3>
+                    <div class="nav-tabs">
+                        <button class="nav-tab active" data-tab="study-weekly">
+                            <i class="fas fa-calendar-week"></i>
+                            <span>Grade Semanal</span>
+                        </button>
+                        <button class="nav-tab" data-tab="study-notes">
+                            <i class="fas fa-sticky-note"></i>
+                            <span>Anotações</span>
+                        </button>
+                        <button class="nav-tab" data-tab="study-files">
+                            <i class="fas fa-folder-open"></i>
+                            <span>Arquivos</span>
+                        </button>
+                        <button class="nav-tab" data-tab="study-calendar">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Calendário</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>Configurações</h3>
+                    <button class="nav-link" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                        <span>Tema Escuro</span>
+                    </button>
+                    <button class="nav-link" id="export-study">
+                        <i class="fas fa-download"></i>
+                        <span>Exportar Dados</span>
+                    </button>
+                    <button class="nav-link" id="backup-study">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Backup</span>
+                    </button>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <i class="fas fa-circle status-online"></i>
+                    <span>Dados salvos localmente</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-title">
+                    <h2 id="current-page-title">Grade Semanal</h2>
+                    <p id="current-page-subtitle">Gerencie sua rotina de estudos</p>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="date-selector">
+                        <button id="prev-period" class="btn-icon">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span id="current-period">Semana Atual</span>
+                        <button id="next-period" class="btn-icon">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <button class="btn btn-primary" id="today-btn">
+                        <i class="fas fa-calendar-day"></i> Hoje
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Sections -->
+            <div class="content-sections">
+                <!-- Grade Semanal -->
+                <section class="content-section active" id="study-weekly">
+                    <div class="section-header">
+                        <h3><i class="fas fa-calendar-week"></i> Grade Semanal de Estudos</h3>
+                        <p>Organize suas sessões de estudo por dia da semana</p>
+                    </div>
+                    
+                    <div class="week-grid-container">
+                        <div class="week-days-header">
+                            <div class="day-header">Domingo</div>
+                            <div class="day-header">Segunda</div>
+                            <div class="day-header">Terça</div>
+                            <div class="day-header">Quarta</div>
+                            <div class="day-header">Quinta</div>
+                            <div class="day-header">Sexta</div>
+                            <div class="day-header">Sábado</div>
+                        </div>
+                        
+                        <div class="week-grid">
+                            <!-- Dias serão preenchidos via JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="add-study-form">
+                        <h4><i class="fas fa-plus-circle"></i> Adicionar Sessão de Estudo</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="study-subject">Matéria/Tópico</label>
+                                <input type="text" id="study-subject" placeholder="Ex: Cálculo, Programação, História" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="study-day">Dia da Semana</label>
+                                <select id="study-day" class="form-select">
+                                    <option value="0">Domingo</option>
+                                    <option value="1">Segunda-feira</option>
+                                    <option value="2">Terça-feira</option>
+                                    <option value="3">Quarta-feira</option>
+                                    <option value="4">Quinta-feira</option>
+                                    <option value="5">Sexta-feira</option>
+                                    <option value="6">Sábado</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="study-time">Horário</label>
+                                <input type="time" id="study-time" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="study-duration">Duração (horas)</label>
+                                <input type="number" id="study-duration" min="0.5" max="8" step="0.5" value="1" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="study-priority">Prioridade</label>
+                                <select id="study-priority" class="form-select">
+                                    <option value="low">Baixa</option>
+                                    <option value="medium" selected>Média</option>
+                                    <option value="high">Alta</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block" id="add-study-block">
+                                    <i class="fas fa-plus"></i> Adicionar Sessão
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Anotações -->
+                <section class="content-section" id="study-notes">
+                    <div class="section-header">
+                        <h3><i class="fas fa-sticky-note"></i> Anotações e Lembretes</h3>
+                        <p>Guide suas ideias e informações importantes</p>
+                    </div>
+                    
+                    <div class="notes-container">
+                        <div class="notes-grid">
+                            <!-- Anotações serão carregadas via JavaScript -->
+                        </div>
+                        
+                        <div class="add-note-form">
+                            <h4><i class="fas fa-edit"></i> Nova Anotação</h4>
+                            <div class="form-group">
+                                <textarea id="new-note" class="form-textarea" placeholder="Digite sua anotação aqui..." rows="4"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="note-tags">Tags (separadas por vírgula)</label>
+                                <input type="text" id="note-tags" class="form-input" placeholder="ex: matemática, prova, importante">
+                            </div>
+                            <button class="btn btn-primary" id="add-note">
+                                <i class="fas fa-save"></i> Salvar Anotação
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Arquivos -->
+                <section class="content-section" id="study-files">
+                    <div class="section-header">
+                        <h3><i class="fas fa-folder-open"></i> Biblioteca de Arquivos</h3>
+                        <p>Armazene materiais de estudo, PDFs e documentos</p>
+                    </div>
+                    
+                    <div class="files-container">
+                        <div class="upload-area" id="upload-area">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <h4>Arraste arquivos aqui</h4>
+                            <p>ou clique para selecionar</p>
+                            <small>Suporta PDF, DOC, JPG, PNG (até 10MB)</small>
+                            <input type="file" id="file-input" multiple class="hidden">
+                        </div>
+                        
+                        <div class="files-grid">
+                            <!-- Arquivos serão carregados via JavaScript -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Calendário -->
+                <section class="content-section" id="study-calendar">
+                    <div class="section-header">
+                        <h3><i class="fas fa-calendar-alt"></i> Calendário Acadêmico</h3>
+                        <p>Visualize todos seus compromissos em um calendário</p>
+                    </div>
+                    
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <div class="calendar-nav">
+                                <button id="prev-month" class="btn-icon">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <h2 id="current-month">Junho 2024</h2>
+                                <button id="next-month" class="btn-icon">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            <div class="calendar-legend">
+                                <div class="legend-item">
+                                    <span class="legend-color" style="background-color: #4a6bff;"></span>
+                                    <span>Sessão de Estudo</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color" style="background-color: #ff6b6b;"></span>
+                                    <span>Prova/Avaliação</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color" style="background-color: #ffa500;"></span>
+                                    <span>Trabalho</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="calendar-weekdays">
+                            <div class="weekday">Dom</div>
+                            <div class="weekday">Seg</div>
+                            <div class="weekday">Ter</div>
+                            <div class="weekday">Qua</div>
+                            <div class="weekday">Qui</div>
+                            <div class="weekday">Sex</div>
+                            <div class="weekday">Sáb</div>
+                        </div>
+                        
+                        <div class="calendar-days">
+                            <!-- Dias serão gerados via JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-events-panel">
+                        <div class="events-header">
+                            <h4><i class="fas fa-calendar-check"></i> Eventos do Mês</h4>
+                            <button class="btn btn-sm" id="add-calendar-event">
+                                <i class="fas fa-plus"></i> Novo Evento
+                            </button>
+                        </div>
+                        <div class="events-list">
+                            <!-- Eventos serão carregados via JavaScript -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <div class="footer-content">
+                    <p>© 2024 Organizador Pessoal. Todos os dados são armazenados localmente.</p>
+                    <div class="footer-links">
+                        <a href="#" id="clear-study-data">Limpar dados</a>
+                        <a href="#" id="import-study-data">Importar dados</a>
+                        <a href="#" id="help-study">Ajuda</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Modais -->
+    <div class="modal" id="event-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Detalhes do Evento</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Conteúdo do modal será preenchido via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="add-event-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Adicionar Novo Evento</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="new-event-form">
+                    <div class="form-group">
+                        <label for="event-title">Título do Evento</label>
+                        <input type="text" id="event-title" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-date">Data</label>
+                        <input type="date" id="event-date" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-type">Tipo de Evento</label>
+                        <select id="event-type" class="form-select" required>
+                            <option value="study">Sessão de Estudo</option>
+                            <option value="exam">Prova/Avaliação</option>
+                            <option value="assignment">Trabalho/Entrega</option>
+                            <option value="meeting">Reunião</option>
+                            <option value="other">Outro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-time">Horário (opcional)</label>
+                        <input type="time" id="event-time" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="event-description">Descrição (opcional)</label>
+                        <textarea id="event-description" class="form-textarea" rows="3"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary modal-close">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Evento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/estudo.js"></script>
+</body>
+</html>
